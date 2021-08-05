@@ -12,7 +12,7 @@ def cancel_unfilled_orders() -> None:
         cancel_order: CancelOrderResponse = CancelOrder(unfilled_order).execute()
 
 
-if __name__ == "__main__":
+def do():
     try:
         cancel_unfilled_orders()
     except ClientErrorException as e:

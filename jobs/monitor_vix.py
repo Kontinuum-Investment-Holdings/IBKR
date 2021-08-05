@@ -14,7 +14,7 @@ def monitor_vix() -> None:
     communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"VIX Index: {str(vix_index)}", False)
 
 
-if __name__ == "__main__":
+def do():
     try:
         monitor_vix()
     except ClientErrorException as e:

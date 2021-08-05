@@ -27,7 +27,7 @@ def buy_shares_from_remaining_cash(symbol: str) -> None:
             order_response: PlaceOrderResponse = PlaceOrder(symbol, OrderType.MARKET, OrderSide.BUY, number_of_shares, None, account.account_id).execute()
 
 
-if __name__ == "__main__":
+def do():
     try:
         buy_shares_from_remaining_cash("TQQQ")
     except ClientErrorException as e:
