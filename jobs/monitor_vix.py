@@ -15,7 +15,7 @@ def monitor_vix() -> None:
     communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"VIX Index: {str(vix_index)}", False)
 
 
-def do():
+def do() -> None:
     common.log("Running job: " + str(__file__).split("/")[-1])
     try:
         monitor_vix()

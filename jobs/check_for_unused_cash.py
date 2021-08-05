@@ -28,7 +28,7 @@ def buy_shares_from_remaining_cash(symbol: str) -> None:
             order_response: PlaceOrderResponse = PlaceOrder(symbol, OrderType.MARKET, OrderSide.BUY, number_of_shares, None, account.account_id).execute()
 
 
-def do():
+def do() -> None:
     common.log("Running job: " + str(__file__).split("/")[-1])
     try:
         buy_shares_from_remaining_cash("TQQQ")

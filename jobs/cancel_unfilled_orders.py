@@ -8,7 +8,7 @@ from jobs import common
 JOB_NAME: str = "Cancel Unfilled Orders"
 
 
-def do():
+def do() -> None:
     common.log("Running job: " + str(__file__).split("/")[-1])
     try:
         CancelOrder.all_unfilled_orders()
