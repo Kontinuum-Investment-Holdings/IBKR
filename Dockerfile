@@ -21,9 +21,13 @@ RUN echo "wget https://github.com/Kontinuum-Investment-Holdings/IBKR/archive/mai
 RUN echo "tar -xf main.tar.gz\n" >> update.sh
 RUN echo "mv IBKR-main IBKR\n" >> update.sh
 RUN echo "rm main.tar.gz\n" >> update.sh
+RUN echo "\n" >> update.sh
+RUN echo "pip install --upgrade pip" >> update.sh
+RUN echo "pip install --user -r KIH_API/requirements.txt" >> update.sh
+RUN echo "pip install --user -r IBKR/requirements.txt" >> update.sh
 
 RUN chmod +x update.sh
 RUN ./update.sh
-RUN python $HOME/python/modules/IBKR/monitor_vix.py &
 
 WORKDIR /srv/ibeam
+RUN sed -i '3i python $HOME/python/modules/IBKR/scheduler.py' run.sh

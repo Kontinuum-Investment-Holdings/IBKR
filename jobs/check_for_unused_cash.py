@@ -18,10 +18,10 @@ def buy_shares_from_remaining_cash(symbol: str) -> None:
         number_of_shares = min(int(remaining_cash / share_price), 499)
 
         communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>{JOB_NAME}</u></b>"
-                                                                                                                    f"\n\nAccount ID: <i>{account.account_id}</i>"
-                                                                                                                    f"\nRemaining Cash: <i>${global_common.get_formatted_string_from_decimal(remaining_cash)}</i>"
-                                                                                                                    f"\nShares to buy: <i>{symbol}</i>"
-                                                                                                                    f"\nNumber of Shares: <i>{number_of_shares}</i>", True)
+                                                                             f"\n\nAccount ID: <i>{account.account_id}</i>"
+                                                                             f"\nRemaining Cash: <i>${global_common.get_formatted_string_from_decimal(remaining_cash)}</i>"
+                                                                             f"\nShares to buy: <i>{symbol}</i>"
+                                                                             f"\nNumber of Shares: <i>{number_of_shares}</i>", True)
 
         if number_of_shares > 0:
             order_response: PlaceOrderResponse = PlaceOrder(symbol, OrderType.MARKET, OrderSide.BUY, number_of_shares, None, account.account_id).execute()
@@ -40,3 +40,7 @@ def do():
         if str(e) != "":
             message = message + f"\nError Message: <i>{str(e)}</i>"
         communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
+
+
+if __name__ == "__main__":
+    do()

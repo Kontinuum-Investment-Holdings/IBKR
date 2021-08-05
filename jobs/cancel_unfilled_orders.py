@@ -25,3 +25,7 @@ def do():
         if str(e) != "":
             message = message + f"\nError Message: <i>{str(e)}</i>"
         communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
+
+
+if __name__ == "__main__":
+    do()
