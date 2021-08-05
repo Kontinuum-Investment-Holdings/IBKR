@@ -1,8 +1,8 @@
 import time
 
-import communication
+import communication.telegram
 
 import constants
 
 time.sleep(10)
-communication.telegram(constants.TELEGRAM_BOT_USERNAME, "This is a test for the scheduler", False)
+communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, "This is a test for the scheduler", False)
