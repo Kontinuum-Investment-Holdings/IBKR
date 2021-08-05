@@ -2,6 +2,8 @@ import communication.telegram
 from http_requests import ClientErrorException, ServerErrorException
 from ibkr.models import UnfilledOrder, CancelOrderResponse, CancelOrder
 
+import constants
+
 JOB_NAME: str = "Cancel Unfilled Orders"
 
 

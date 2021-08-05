@@ -6,6 +6,8 @@ from ibkr.models import Account, AccountInformation, Instrument, StockExchanges,
     UnfilledOrder, InstrumentType
 from http_requests import ClientErrorException, ServerErrorException
 
+import constants
+
 JOB_NAME: str = "Checking for unused cash"
 
 
