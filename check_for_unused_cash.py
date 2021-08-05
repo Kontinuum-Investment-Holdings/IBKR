@@ -15,7 +15,7 @@ def buy_shares_from_remaining_cash(symbol: str) -> None:
         share_price: Decimal = Instrument.get(symbol, InstrumentType.STOCK, StockExchanges.NASDAQ).last_price
         number_of_shares = min(int(remaining_cash / share_price), 499)
 
-        communication.telegram.send_message(communication.telegram.constants.telegram_channel_username_development, f"<b><u>{JOB_NAME}</u></b>"
+        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>{JOB_NAME}</u></b>"
                                                                                                                     f"\n\nAccount ID: <i>{account.account_id}</i>"
                                                                                                                     f"\nRemaining Cash: <i>${global_common.get_formatted_string_from_decimal(remaining_cash)}</i>"
                                                                                                                     f"\nShares to buy: <i>{symbol}</i>"
@@ -32,9 +32,9 @@ if __name__ == "__main__":
         message: str = f"<b><u>ERROR</u></b>\n\nJob Name: <i>{JOB_NAME}</i>\nError: <i>Client Error Exception</i>"
         if str(e) != "":
             message = message + f"\nError Message: <i>{str(e)}</i>"
-        communication.telegram.send_message(communication.telegram.constants.telegram_channel_username_development, message, True)
+        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
     except ServerErrorException as e:
         message = f"<b><u>ERROR</u></b></u>\n\nJob Name: <i>{JOB_NAME}</i>\nError: <i>Server Error Exception</i>"
         if str(e) != "":
             message = message + f"\nError Message: <i>{str(e)}</i>"
-        communication.telegram.send_message(communication.telegram.constants.telegram_channel_username_development, message, True)
+        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)

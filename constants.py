@@ -1,0 +1,3 @@
+import os
+
+TELEGRAM_BOT_USERNAME: str = os.getenv("TELEGRAM_BOT_USERNAME")
