@@ -3,8 +3,7 @@ from decimal import Decimal
 import communication.telegram
 import global_common
 from http_requests import ClientErrorException, ServerErrorException
-from ibkr.models import Account, AccountInformation, Instrument, StockExchanges, PlaceOrderResponse, PlaceOrder, OrderType, OrderSide, \
-    UnfilledOrder, InstrumentType
+from ibkr.models import Account, AccountInformation, UnfilledOrder, StockExchanges, Instrument, InstrumentType, PlaceOrderResponse, PlaceOrder, OrderType, OrderSide
 
 import constants
 from jobs import common

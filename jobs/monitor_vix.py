@@ -2,7 +2,7 @@ from decimal import Decimal
 
 import communication.telegram
 from http_requests import ClientErrorException, ServerErrorException
-from ibkr.models import Instrument, StockExchanges, InstrumentType
+from ibkr.models import Instrument, InstrumentType, StockExchanges
 
 import constants
 from jobs import common

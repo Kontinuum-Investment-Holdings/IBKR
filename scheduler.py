@@ -2,10 +2,10 @@ import time
 from datetime import datetime
 from typing import Callable
 
-import global_common
 import pytz
 import schedule
 
+import get_account_summary
 from jobs import monitor_vix, common, cancel_unfilled_orders, check_for_unused_cash
 
 
@@ -32,6 +32,9 @@ if __name__ == "__main__":
 
     run_every_week_day(cancel_unfilled_orders.do, get_local_time("15:55:00"))
     run_every_week_day(check_for_unused_cash.do, get_local_time("09:30:00"))
+
+    run_every_week_day(get_account_summary.do, get_local_time("09:30:00"))
+    run_every_week_day(get_account_summary.do, get_local_time("16:00:00"))
 
     while True:
         schedule.run_pending()
