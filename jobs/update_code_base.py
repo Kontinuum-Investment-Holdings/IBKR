@@ -1,10 +1,10 @@
 import os
 
-import logger
+from jobs import common
 
 
 def do():
-    logger.info("Running job: " + str(__file__).split("/")[-1])
+    common.log("Running job: " + str(__file__).split("/")[-1])
     directory: str = os.getenv("HOME") + "/scripts/"
     os.chdir(directory)
     os.system("./run.sh | tee -a run.log &")

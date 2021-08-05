@@ -1,7 +1,5 @@
 FROM voyz/ibeam
 
-RUN #apt-get update && apt-get install -y cron
-
 ENV PYTHONPATH "$PYTHONPATH:/home/basic_user/python/modules/pip:/home/basic_user/python/modules/KIH_API"
 
 RUN mkdir -p /home/basic_user/scripts/

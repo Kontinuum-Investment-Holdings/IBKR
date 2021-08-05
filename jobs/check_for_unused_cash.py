@@ -2,12 +2,12 @@ from decimal import Decimal
 
 import communication.telegram
 import global_common
-import logger
+from http_requests import ClientErrorException, ServerErrorException
 from ibkr.models import Account, AccountInformation, Instrument, StockExchanges, PlaceOrderResponse, PlaceOrder, OrderType, OrderSide, \
     UnfilledOrder, InstrumentType
-from http_requests import ClientErrorException, ServerErrorException
 
 import constants
+from jobs import common
 
 JOB_NAME: str = "Checking for unused cash"
 
@@ -29,7 +29,7 @@ def buy_shares_from_remaining_cash(symbol: str) -> None:
 
 
 def do():
-    logger.info("Running job: " + str(__file__).split("/")[-1])
+    common.log("Running job: " + str(__file__).split("/")[-1])
     try:
         buy_shares_from_remaining_cash("TQQQ")
     except ClientErrorException as e:

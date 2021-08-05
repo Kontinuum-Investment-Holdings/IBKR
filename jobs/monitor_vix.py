@@ -1,11 +1,11 @@
 from decimal import Decimal
 
 import communication.telegram
-import logger
 from http_requests import ClientErrorException, ServerErrorException
 from ibkr.models import Instrument, StockExchanges, InstrumentType
 
 import constants
+from jobs import common
 
 JOB_NAME: str = "Monitor VIX"
 
@@ -16,7 +16,7 @@ def monitor_vix() -> None:
 
 
 def do():
-    logger.info("Running job: " + str(__file__).split("/")[-1])
+    common.log("Running job: " + str(__file__).split("/")[-1])
     try:
         monitor_vix()
     except ClientErrorException as e:
