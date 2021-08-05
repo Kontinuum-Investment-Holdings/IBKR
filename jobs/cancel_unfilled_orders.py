@@ -1,4 +1,5 @@
 import communication.telegram
+import logger
 from http_requests import ClientErrorException, ServerErrorException
 from ibkr.models import UnfilledOrder, CancelOrderResponse, CancelOrder
 
@@ -13,6 +14,7 @@ def cancel_unfilled_orders() -> None:
 
 
 def do():
+    logger.info("Running job: " + str(__file__).split("/")[-1])
     try:
         cancel_unfilled_orders()
     except ClientErrorException as e:

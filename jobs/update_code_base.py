@@ -1,10 +1,13 @@
 import os
 
+import logger
+
 
 def do():
-    home_directory: str = os.getenv("HOME")
-    update_script: str = "/scripts/run.sh"
-    os.system("." + home_directory + update_script)
+    logger.info("Running job: " + str(__file__).split("/")[-1])
+    directory: str = os.getenv("HOME") + "scripts/"
+    os.chdir(directory)
+    os.system("./run.sh | tee -a run.log &")
     quit()
 
 
