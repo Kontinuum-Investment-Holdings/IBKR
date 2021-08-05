@@ -1,8 +1,12 @@
 import time
 
-import communication.telegram
+import schedule
 
-import constants
+import monitor_vix
 
-time.sleep(10)
-communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, "This is a test for the scheduler", False)
+if __name__ == "__main__":
+    schedule.every(10).seconds.do(monitor_vix.monitor_vix())
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
