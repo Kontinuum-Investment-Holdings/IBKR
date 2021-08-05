@@ -6,7 +6,7 @@ import global_common
 import pytz
 import schedule
 
-from jobs import monitor_vix, common
+from jobs import monitor_vix, common, cancel_unfilled_orders, check_for_unused_cash
 
 
 def run_in_a_new_thread(job: Callable):
@@ -22,8 +22,11 @@ def get_local_time(time: str) -> str:
 
 if __name__ == "__main__":
     common.log("IBKR Jobs Started")
-    schedule.every().day.at(get_local_time("04:57:00")).do(monitor_vix.do)
-    print(get_local_time("04:57:00"))
+    schedule.every().day.at(get_local_time("09:30:00")).do(monitor_vix.do)
+    schedule.every().day.at(get_local_time("16:00:00")).do(monitor_vix.do)
+
+    schedule.every().day.at(get_local_time("15:55:00")).do(cancel_unfilled_orders.do)
+    schedule.every().day.at(get_local_time("09:30:00")).do(check_for_unused_cash.do)
 
     while True:
         schedule.run_pending()
