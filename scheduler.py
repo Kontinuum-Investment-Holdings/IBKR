@@ -22,7 +22,8 @@ def get_local_time(time: str) -> str:
 
 if __name__ == "__main__":
     common.log("IBKR Jobs Started")
-    schedule.every().day.at(get_local_time("04:55:00")).do(monitor_vix.do)
+    schedule.every().day.at(get_local_time("04:57:00")).do(monitor_vix.do)
+    print(get_local_time("04:57:00"))
 
     while True:
         schedule.run_pending()
