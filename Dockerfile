@@ -2,32 +2,37 @@ FROM voyz/ibeam
 
 RUN #apt-get update && apt-get install -y cron
 
-ENV PYTHONPATH "$PYTHONPATH:/home/basic_user/python/modules/KIH_API"
+ENV PYTHONPATH "$PYTHONPATH:/home/basic_user/python/modules/pip:/home/basic_user/python/modules/KIH_API"
 
 RUN mkdir -p /home/basic_user/scripts/
 WORKDIR /home/basic_user/scripts/
 
-RUN echo "#!/bin/bash\n" >> update.sh
-RUN echo "mkdir -p $HOME/python/modules/" >> update.sh
-RUN echo "cd $HOME/python/modules" >> update.sh
-RUN echo "rm -r KIH_API\n" >> update.sh
-RUN echo "wget https://github.com/Kontinuum-Investment-Holdings/KIH_API/archive/main.tar.gz\n" >> update.sh
-RUN echo "tar -xf main.tar.gz\n" >> update.sh
-RUN echo "mv KIH_API-main KIH_API\n" >> update.sh
-RUN echo "rm main.tar.gz\n" >> update.sh
-RUN echo "\n" >> update.sh
-RUN echo "rm -r IBKR\n" >> update.sh
-RUN echo "wget https://github.com/Kontinuum-Investment-Holdings/IBKR/archive/main.tar.gz\n" >> update.sh
-RUN echo "tar -xf main.tar.gz\n" >> update.sh
-RUN echo "mv IBKR-main IBKR\n" >> update.sh
-RUN echo "rm main.tar.gz\n" >> update.sh
-RUN echo "\n" >> update.sh
-RUN echo "pip install --upgrade pip" >> update.sh
-RUN echo "pip install --user -r KIH_API/requirements.txt" >> update.sh
-RUN echo "pip install --user -r IBKR/requirements.txt" >> update.sh
+RUN echo '#!/bin/bash \n\
+mkdir -p $HOME/python/modules \n\
+cd $HOME/python/modules \n\
+rm -r KIH_API \n\
+wget https://github.com/Kontinuum-Investment-Holdings/KIH_API/archive/main.tar.gz \n\
+tar -xf main.tar.gz \n\
+mv KIH_API-main KIH_API\n\
+rm main.tar.gz \n\
+\n\
+rm -r IBKR \n\
+wget https://github.com/Kontinuum-Investment-Holdings/IBKR/archive/main.tar.gz \n\
+tar -xf main.tar.gz \n\
+mv IBKR-main IBKR \n\
+rm main.tar.gz \n\
+\n\
+cd IBKR \n\
+python -m venv IBKR_venv \n\
+cd .. \n\
+. IBKR/IBKR_venv/bin/activate \n\
+pip install --upgrade pip \n\
+pip install -r KIH_API/requirements.txt \n\
+pip install -r IBKR/requirements.txt \n\
+\n\
+python IBKR/scheduler.py' >> run.sh
 
-RUN chmod +x update.sh
-RUN ./update.sh
+RUN chmod +x run.sh
 
 WORKDIR /srv/ibeam
-RUN sed -i '3i python $HOME/python/modules/IBKR/scheduler.py' run.sh
+RUN sed -i '2i $HOME/scripts/run.sh | tee -a $HOME/scripts/run.log &' run.sh
