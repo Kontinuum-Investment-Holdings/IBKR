@@ -9,10 +9,6 @@ import schedule
 from jobs import monitor_vix, common, cancel_unfilled_orders, check_for_unused_cash
 
 
-def run_in_a_new_thread(job: Callable):
-    global_common.run_as_separate_thread(job, None)
-
-
 def get_local_time(time: str) -> str:
     hour: int = int(time.split(":")[0])
     minute: int = int(time.split(":")[1])
@@ -20,13 +16,22 @@ def get_local_time(time: str) -> str:
     return pytz.timezone("America/New_York").localize(datetime.now().replace(hour=hour, minute=minute, second=second)).astimezone().strftime("%H:%M:%S")
 
 
+def run_every_week_day(job: Callable, time: str) -> None:
+    schedule.every().monday.at(time).do(job)
+    schedule.every().tuesday.at(time).do(job)
+    schedule.every().wednesday.at(time).do(job)
+    schedule.every().thursday.at(time).do(job)
+    schedule.every().friday.at(time).do(job)
+
+
 if __name__ == "__main__":
     common.log("IBKR Jobs Started")
-    schedule.every().day.at(get_local_time("09:30:00")).do(monitor_vix.do)
-    schedule.every().day.at(get_local_time("16:00:00")).do(monitor_vix.do)
 
-    schedule.every().day.at(get_local_time("15:55:00")).do(cancel_unfilled_orders.do)
-    schedule.every().day.at(get_local_time("09:30:00")).do(check_for_unused_cash.do)
+    run_every_week_day(monitor_vix.do, get_local_time("09:30:00"))
+    run_every_week_day(monitor_vix.do, get_local_time("16:00:00"))
+
+    run_every_week_day(cancel_unfilled_orders.do, get_local_time("15:55:00"))
+    run_every_week_day(check_for_unused_cash.do, get_local_time("09:30:00"))
 
     while True:
         schedule.run_pending()
