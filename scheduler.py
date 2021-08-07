@@ -5,8 +5,7 @@ from typing import Callable
 import pytz
 import schedule
 
-import get_account_summary
-from jobs import monitor_vix, common, cancel_unfilled_orders, check_for_unused_cash
+from jobs import monitor_vix, common, cancel_unfilled_orders, check_for_unused_cash, get_account_summary
 
 
 def get_local_time(time: str) -> str:
