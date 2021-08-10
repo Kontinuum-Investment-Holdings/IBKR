@@ -17,6 +17,7 @@ def run_every_week_day(job: Callable, time: str) -> None:
 
 if __name__ == "__main__":
     common.log("IBKR Jobs Started")
+    get_account_summary.do()
 
     run_every_week_day(monitor_vix.do, "09:30")
     run_every_week_day(monitor_vix.do, "16:00")
