@@ -1,10 +1,12 @@
 from decimal import Decimal
 
 import communication.telegram
+import global_common
 from ibkr.models import Account, AccountInformation, StockExchanges, Instrument, InstrumentType, PlaceOrder, OrderType, OrderSide, CancelOrder, PortfolioPosition
 
 import common
 import constants
+from jobs import get_account_summary
 
 
 @common.job("Buying stocks leveraged")
@@ -18,7 +20,7 @@ def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
 
         communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>Buying Leveraged Stocks</u></b>"
                                                                              f"\n\nAccount ID: <i>{account.account_id}</i>"
-                                                                             f"\n\nCash: <i>{cash}</i>"
+                                                                             f"\n\nCash: <i>${global_common.get_formatted_string_from_decimal(cash)}</i>"
                                                                              f"\nShares to buy: <i>{symbol}</i>"
                                                                              f"\nNumber of Shares: <i>{number_of_shares}</i>", True)
 
@@ -28,6 +30,7 @@ def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
 
 def do() -> None:
     buy_leveraged_stocks("QQQ", 3)
+    get_account_summary.do()
 
 
 if __name__ == "__main__":

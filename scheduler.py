@@ -25,8 +25,16 @@ if __name__ == "__main__":
     run_every_week_day(get_account_summary.do, "09:30")
     run_every_week_day(get_account_summary.do, "16:00")
 
-    run_every_week_day(buy_leveraged_stocks.do, "15:00")
     run_every_week_day(cancel_unfilled_orders.do, "15:55")
+
+    run_every_week_day(buy_leveraged_stocks.do, "09:00")
+    run_every_week_day(buy_leveraged_stocks.do, "10:00")
+    run_every_week_day(buy_leveraged_stocks.do, "11:00")
+    run_every_week_day(buy_leveraged_stocks.do, "12:00")
+    run_every_week_day(buy_leveraged_stocks.do, "13:00")
+    run_every_week_day(buy_leveraged_stocks.do, "14:00")
+    run_every_week_day(buy_leveraged_stocks.do, "15:00")
+    run_every_week_day(buy_leveraged_stocks.do, "16:00")
 
     schedule.every().sunday.at("20:00").do(update_code_base.do)
 
