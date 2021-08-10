@@ -1,15 +1,19 @@
 import os
 
 import common
+import constants
+
+
+def pull_codebase(working_directory: str) -> None:
+    os.chdir(working_directory)
+    os.system("git reset --hard origin/master")
+    os.system("git pull origin master")
 
 
 @common.job("Update code base")
 def do() -> None:
-    common.log("Running job: " + str(__file__).split("/")[-1])
-    directory: str = os.getenv("HOME") + "/scripts/"
-    os.chdir(directory)
-    os.system("./run.sh | tee -a run.log &")
-    quit()
+    pull_codebase(constants.PROJECT_DIRECTORY + "IBKR")
+    pull_codebase(constants.PROJECT_DIRECTORY + "ibeam")
 
 
 if __name__ == "__main__":
