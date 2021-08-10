@@ -2,22 +2,20 @@ from decimal import Decimal
 
 import communication.telegram
 import global_common
-from http_requests import ClientErrorException, ServerErrorException
 from ibkr.models import Account, AccountInformation, UnfilledOrder, StockExchanges, Instrument, InstrumentType, PlaceOrderResponse, PlaceOrder, OrderType, OrderSide
 
+import common
 import constants
-from jobs import common
-
-JOB_NAME: str = "Checking for unused cash"
 
 
-def buy_shares_from_remaining_cash(symbol: str) -> None:
+@common.job("Checking for unused cash")
+def check_for_unused_cash(symbol: str) -> None:
     for account in Account.get_all():
         remaining_cash: Decimal = AccountInformation.get_by_account_id(account.account_id).available_funds - UnfilledOrder.get_all_unfilled_orders_value(StockExchanges.NASDAQ)
         share_price: Decimal = Instrument.get(symbol, InstrumentType.STOCK, StockExchanges.NASDAQ).last_price
         number_of_shares = min(int(remaining_cash / share_price), 499)
 
-        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>{JOB_NAME}</u></b>"
+        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>Checking for unused cash</u></b>"
                                                                              f"\n\nAccount ID: <i>{account.account_id}</i>"
                                                                              f"\nRemaining Cash: <i>${global_common.get_formatted_string_from_decimal(remaining_cash)}</i>"
                                                                              f"\nShares to buy: <i>{symbol}</i>"
@@ -28,19 +26,7 @@ def buy_shares_from_remaining_cash(symbol: str) -> None:
 
 
 def do() -> None:
-    common.log("Running job: " + str(__file__).split("/")[-1])
-    try:
-        buy_shares_from_remaining_cash("TQQQ")
-    except ClientErrorException as e:
-        message: str = f"<b><u>ERROR</u></b>\n\nJob Name: <i>{JOB_NAME}</i>\nError: <i>Client Error Exception</i>"
-        if str(e) != "":
-            message = message + f"\nError Message: <i>{str(e)}</i>"
-        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
-    except ServerErrorException as e:
-        message = f"<b><u>ERROR</u></b></u>\n\nJob Name: <i>{JOB_NAME}</i>\nError: <i>Server Error Exception</i>"
-        if str(e) != "":
-            message = message + f"\nError Message: <i>{str(e)}</i>"
-        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
+    check_for_unused_cash("TQQQ")
 
 
 if __name__ == "__main__":

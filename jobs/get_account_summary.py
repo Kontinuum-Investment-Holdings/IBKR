@@ -5,13 +5,12 @@ import communication.telegram
 import global_common
 from ibkr.models import PortfolioPosition, AccountInformation, Account
 
+import common
 import constants
-from jobs import common
 
 
-def do() -> None:
-    common.log("Running job: " + str(__file__).split("/")[-1])
-
+@common.job("Getting Account Summary")
+def get_account_summary() -> None:
     net_worth: Decimal = Decimal("0")
     message: str = "<b><u>Account Summary</u></b>\n"
     for account in Account.get_all():
@@ -35,6 +34,10 @@ def do() -> None:
 
     message = message + f"\nTotal Net Worth: <u><i>${global_common.get_formatted_string_from_decimal(net_worth)}</i></u>"
     communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
+
+
+def do() -> None:
+    get_account_summary()
 
 
 if __name__ == "__main__":

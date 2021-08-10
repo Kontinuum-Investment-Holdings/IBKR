@@ -1,16 +1,13 @@
 from decimal import Decimal
 
 import communication.telegram
-import global_common
-from http_requests import ClientErrorException, ServerErrorException
-from ibkr.models import Account, AccountInformation, UnfilledOrder, StockExchanges, Instrument, InstrumentType, PlaceOrderResponse, PlaceOrder, OrderType, OrderSide, CancelOrder, PortfolioPosition
+from ibkr.models import Account, AccountInformation, StockExchanges, Instrument, InstrumentType, PlaceOrder, OrderType, OrderSide, CancelOrder, PortfolioPosition
 
+import common
 import constants
-from jobs import common
-
-JOB_NAME: str = "Buying stocks leveraged"
 
 
+@common.job("Buying stocks leveraged")
 def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
     CancelOrder.all_unfilled_orders()
     for account in Account.get_all():
@@ -19,7 +16,7 @@ def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
         share_price: Decimal = Instrument.get(symbol, InstrumentType.STOCK, StockExchanges.NASDAQ).last_price
         number_of_shares = int(cash * Decimal(str(leverage)) / share_price)
 
-        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>{JOB_NAME}</u></b>"
+        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>Buying Leveraged Stocks</u></b>"
                                                                              f"\n\nAccount ID: <i>{account.account_id}</i>"
                                                                              f"\n\nCash: <i>{cash}</i>"
                                                                              f"\nShares to buy: <i>{symbol}</i>"
@@ -30,19 +27,7 @@ def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
 
 
 def do() -> None:
-    common.log("Running job: " + str(__file__).split("/")[-1])
-    try:
-        buy_leveraged_stocks("TQQQ", 3)
-    except ClientErrorException as e:
-        message: str = f"<b><u>ERROR</u></b>\n\nJob Name: <i>{JOB_NAME}</i>\nError: <i>Client Error Exception</i>"
-        if str(e) != "":
-            message = message + f"\nError Message: <i>{str(e)}</i>"
-        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
-    except ServerErrorException as e:
-        message = f"<b><u>ERROR</u></b></u>\n\nJob Name: <i>{JOB_NAME}</i>\nError: <i>Server Error Exception</i>"
-        if str(e) != "":
-            message = message + f"\nError Message: <i>{str(e)}</i>"
-        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
+    buy_leveraged_stocks("TQQQ", 3)
 
 
 if __name__ == "__main__":
