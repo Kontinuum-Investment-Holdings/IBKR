@@ -25,12 +25,12 @@ def job(job_name: str) -> Callable:
             except ClientErrorException as e:
                 message: str = f"<b><u>ERROR</u></b>\n\nJob Name: <i>{job_name}</i>\nError: <i>Client Error Exception</i>"
                 if str(e) != "":
-                    message = message + f"\nError Message: <i>{str(e)}</i>"
+                    message = message + f"\nError Message: <i>{str(e).replace('<', '').replace('>', '')}</i>"
                 communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
             except ServerErrorException as e:
                 message = f"<b><u>ERROR</u></b>\n\nJob Name: <i>{job_name}</i>\nError: <i>Server Error Exception</i>"
                 if str(e) != "":
-                    message = message + f"\nError Message: <i>{str(e)}</i>"
+                    message = message + f"\nError Message: <i>{str(e).replace('<', '').replace('>', '')}</i>"
                 communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
             except Exception as e:
                 message = f"<b><u>ERROR</u></b>\n\nJob Name: <i>{job_name}</i>\nError: <i>Unhandled Exception</i>"

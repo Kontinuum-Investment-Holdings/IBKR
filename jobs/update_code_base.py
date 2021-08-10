@@ -12,7 +12,7 @@ def pull_codebase(working_directory: str) -> None:
 
 def restart_IBKR() -> None:
     os.chdir(constants.PROJECT_DIRECTORY + "IBKR")
-    os.system("nohup python3 scheduler.py -m >> logs/ibkr.log 2>&1 &")
+    os.system("source ~/.bash_profile && nohup python3 scheduler.py -m >> logs/ibkr.log 2>&1 &")
     quit()
 
 

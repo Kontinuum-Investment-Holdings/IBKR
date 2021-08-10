@@ -12,15 +12,9 @@ def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
     CancelOrder.all_unfilled_orders()
     for account in Account.get_all():
         PortfolioPosition.close_all_by_account_id(account.account_id)
-
         cash: Decimal = AccountInformation.get_by_account_id(account.account_id).available_funds
-        print("cash: " + cash)
-
         share_price: Decimal = Instrument.get(symbol, InstrumentType.STOCK, StockExchanges.NASDAQ).last_price
-        print("share_price: " + share_price)
-
         number_of_shares = int(cash * Decimal(str(leverage)) / share_price)
-        print("number_of_shares: " + number_of_shares)
 
         communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>Buying Leveraged Stocks</u></b>"
                                                                              f"\n\nAccount ID: <i>{account.account_id}</i>"
@@ -33,7 +27,7 @@ def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
 
 
 def do() -> None:
-    buy_leveraged_stocks("TQQQ", 3)
+    buy_leveraged_stocks("QQQ", 3)
 
 
 if __name__ == "__main__":
