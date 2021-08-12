@@ -5,8 +5,7 @@ import communication.telegram
 import global_common
 from ibkr.models import PortfolioPosition, AccountInformation, Account
 
-import common
-import constants
+from modules import constants, common
 
 
 @common.job("Getting Account Summary")

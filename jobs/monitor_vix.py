@@ -3,8 +3,7 @@ from decimal import Decimal
 import communication.telegram
 from ibkr.models import Instrument, InstrumentType, StockExchanges
 
-import common
-import constants
+from modules import constants, common
 
 
 @common.job("Monitor VIX")

@@ -1,9 +1,6 @@
-import os
-
 import global_common
 
-import common
-import constants
+from modules import constants, common
 
 
 @common.job("Update code base")

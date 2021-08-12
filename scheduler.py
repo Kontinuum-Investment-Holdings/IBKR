@@ -3,7 +3,7 @@ from typing import Callable
 
 import schedule
 
-import common
+from modules import common
 from jobs import monitor_vix, cancel_unfilled_orders, get_account_summary, buy_leveraged_stocks, update_code_base
 
 
