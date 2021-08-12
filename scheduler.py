@@ -4,7 +4,7 @@ from typing import Callable
 import schedule
 
 import common
-from jobs import monitor_vix, cancel_unfilled_orders, get_account_summary, buy_leveraged_stocks, update_code_base
+from jobs import monitor_vix, cancel_unfilled_orders, get_account_summary, buy_leveraged_stocks, update_code_base, check_authentication_status
 
 
 def run_every_week_day(job: Callable, time: str) -> None:
@@ -17,6 +17,8 @@ def run_every_week_day(job: Callable, time: str) -> None:
 
 if __name__ == "__main__":
     common.log("IBKR Jobs Started")
+
+    schedule.every().minute.do(check_authentication_status.do)
 
     run_every_week_day(monitor_vix.do, "09:30")
     run_every_week_day(monitor_vix.do, "16:00")
