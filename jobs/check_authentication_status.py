@@ -2,9 +2,11 @@ import communication.telegram
 import logger
 from ibkr import Authentication
 
+import common
 import constants
 
 
+@common.job("Checking Authentication Status")
 def do() -> None:
     authentication: Authentication = Authentication.call()
     if authentication.authenticated:
