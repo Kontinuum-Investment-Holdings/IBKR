@@ -4,7 +4,8 @@ import communication.telegram
 import global_common
 from ibkr.models import Account, AccountInformation, UnfilledOrder, StockExchanges, Instrument, InstrumentType, PlaceOrderResponse, PlaceOrder, OrderType, OrderSide
 
-from modules import constants, common
+import common
+import constants
 
 
 @common.job("Checking for unused cash")

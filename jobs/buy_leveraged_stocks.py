@@ -4,7 +4,8 @@ import communication.telegram
 import global_common
 from ibkr.models import Account, AccountInformation, StockExchanges, Instrument, InstrumentType, PlaceOrder, OrderType, OrderSide, CancelOrder, PortfolioPosition
 
-from modules import constants, common
+import common
+import constants
 from jobs import get_account_summary
 
 

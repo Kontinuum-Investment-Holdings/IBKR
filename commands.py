@@ -2,7 +2,7 @@ import sys
 
 import global_common
 
-from modules import common
+import common
 
 if __name__ == "__main__":
     if sys.argv[1] == "kill":

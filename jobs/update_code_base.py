@@ -1,6 +1,7 @@
 import global_common
 
-from modules import constants, common
+import common
+import constants
 
 
 @common.job("Update code base")
