@@ -46,7 +46,7 @@ def job(job_name: str) -> Callable:
 
 def restart_IBKR() -> None:
     os.chdir(constants.PROJECT_DIRECTORY + "IBKR")
-    global_common.run_command(["nohup python3 scheduler.py -m >> logs/ibkr.log 2>&1 &"], True)
+    global_common.run_command(["nohup python3 scheduler.py -m >> logs/ibkr.log 2>&1 &"])
     quit()
 
 
