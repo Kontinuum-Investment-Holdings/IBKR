@@ -57,6 +57,5 @@ def kill_all_IBKR_scheduler() -> None:
 def restart_ibeam():
     os.chdir(constants.PROJECT_DIRECTORY + "ibeam")
     global_common.kill_process("ibeam_starter.py", "python3")
-    global_common.run_command(["python3 ibeam/ibeam_starter.py >> logs/ibeam.log 2>&1"])
-    global_common.run_command(["nohup python3 ibeam/ibeam_starter.py -m >> logs/ibeam.log 2>&1 &"], True)
+    global_common.run_command(["python3 ibeam/ibeam_starter.py >> logs/ibeam.log 2>&1", "nohup python3 ibeam/ibeam_starter.py -m >> logs/ibeam.log 2>&1 &"])
 
