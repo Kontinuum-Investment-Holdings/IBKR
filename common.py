@@ -1,11 +1,12 @@
+import os
 from typing import Callable, Any
 
 import communication.telegram
+import global_common
 import logger
+from http_requests import ClientErrorException, ServerErrorException
 
 import constants
-
-from http_requests import ClientErrorException, ServerErrorException
 
 
 def log(log: str) -> None:
@@ -41,3 +42,9 @@ def job(job_name: str) -> Callable:
         return exception_handled_func
 
     return decorator
+
+
+def restart_IBKR() -> None:
+    os.chdir(constants.PROJECT_DIRECTORY + "IBKR")
+    global_common.run_command(["source ~/.bash_profile", "nohup python3 scheduler.py -m >> logs/ibkr.log 2>&1 &"])
+    quit()
