@@ -14,7 +14,7 @@ def log(log: str) -> None:
         log = log.replace(".py", "")
 
     logger.debug(log)
-    # communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"<i>{log}</i>", True)
+    communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"<i>{log}</i>", True)
 
 
 def job(job_name: str) -> Callable:
