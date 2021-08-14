@@ -4,9 +4,11 @@ from logger import logger
 
 import common
 import constants
+import global_common
 
 
 @common.job("Checking Authentication Status")
+@global_common.threaded
 def do() -> None:
     authentication: Authentication = Authentication.call()
     if authentication.authenticated:

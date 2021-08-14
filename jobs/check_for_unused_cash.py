@@ -9,6 +9,7 @@ import constants
 
 
 @common.job("Checking for unused cash")
+@global_common.threaded
 def check_for_unused_cash(symbol: str) -> None:
     for account in Account.get_all():
         remaining_cash: Decimal = AccountInformation.get_by_account_id(account.account_id).available_funds - UnfilledOrder.get_all_unfilled_orders_value(StockExchanges.NASDAQ)

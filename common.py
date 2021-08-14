@@ -13,16 +13,17 @@ def log(log: str) -> None:
     if log.endswith(".py"):
         log = log.replace(".py", "")
 
-    logger.info(log)
-    communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"<i>{log}</i>", True)
+    logger.debug(log)
+    # communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"<i>{log}</i>", True)
 
 
 def job(job_name: str) -> Callable:
     def decorator(func: Callable) -> Callable:
-        def exception_handled_func(*args: Any, **kwargs: Any) -> None:
+        def wrapper(*args: Any, **kwargs: Any) -> None:
             try:
-                log("Running job: " + job_name)
+                log(f"Running job: {job_name}")
                 func(*args, **kwargs)
+                log(f"Job ended: {job_name}")
             except ClientErrorException as e:
                 message: str = f"<b><u>ERROR</u></b>\n\nJob Name: <i>{job_name}</i>\nError: <i>Client Error Exception</i>"
                 if str(e) != "":
@@ -38,9 +39,7 @@ def job(job_name: str) -> Callable:
                 if str(e) != "":
                     message = message + f"\nError Message: <i>{str(e).replace('<', '').replace('>', '')}</i>"
                 communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, message, True)
-
-        return exception_handled_func
-
+        return wrapper
     return decorator
 
 

@@ -37,7 +37,7 @@ if __name__ == "__main__":
     run_every_week_day(buy_leveraged_stocks.do, "15:00")
     run_every_week_day(buy_leveraged_stocks.do, "16:00")
 
-    schedule.every().sunday.at("20:00").do(update_code_base.do)
+    schedule.every().minute.at(":30").do(update_code_base.do)
 
     while True:
         schedule.run_pending()

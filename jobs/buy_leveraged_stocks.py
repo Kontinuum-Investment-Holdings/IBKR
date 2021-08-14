@@ -10,6 +10,7 @@ from jobs import get_account_summary
 
 
 @common.job("Buying stocks leveraged")
+@global_common.threaded
 def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
     CancelOrder.all_unfilled_orders()
     for account in Account.get_all():

@@ -10,6 +10,7 @@ import constants
 
 
 @common.job("Getting Account Summary")
+@global_common.threaded
 def get_account_summary() -> None:
     net_worth: Decimal = Decimal("0")
     message: str = "<b><u>Account Summary</u></b>\n"
