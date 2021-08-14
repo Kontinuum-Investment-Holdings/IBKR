@@ -1,6 +1,6 @@
 import communication.telegram
-import logger
 from ibkr import Authentication
+from logger import logger
 
 import common
 import constants
