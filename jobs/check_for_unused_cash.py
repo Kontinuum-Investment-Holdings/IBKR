@@ -4,11 +4,10 @@ import communication.telegram
 import global_common
 from ibkr.models import Account, AccountInformation, UnfilledOrder, StockExchanges, Instrument, InstrumentType, PlaceOrderResponse, PlaceOrder, OrderType, OrderSide
 
-import common
 import constants
 
 
-@common.job("Checking for unused cash")
+@global_common.job("Checking for unused cash")
 @global_common.threaded
 def check_for_unused_cash(symbol: str) -> None:
     for account in Account.get_all():

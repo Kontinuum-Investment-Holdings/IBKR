@@ -4,12 +4,11 @@ import communication.telegram
 import global_common
 from ibkr.models import Account, AccountInformation, StockExchanges, Instrument, InstrumentType, PlaceOrder, OrderType, OrderSide, CancelOrder, PortfolioPosition
 
-import common
 import constants
 from jobs import get_account_summary
 
 
-@common.job("Buying stocks leveraged")
+@global_common.job("Buying stocks leveraged")
 @global_common.threaded
 def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
     CancelOrder.all_unfilled_orders()

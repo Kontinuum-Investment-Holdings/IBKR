@@ -1,10 +1,8 @@
+import global_common
 from ibkr.models import CancelOrder
 
-import common
-import global_common
 
-
-@common.job("Cancel Unfilled Orders")
+@global_common.job("Cancel Unfilled Orders")
 @global_common.threaded
 def do() -> None:
     CancelOrder.all_unfilled_orders()

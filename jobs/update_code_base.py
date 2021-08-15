@@ -4,7 +4,7 @@ import common
 import constants
 
 
-@common.job("Update code base")
+@global_common.job("Update code base")
 @global_common.threaded
 def do() -> None:
     global_common.update_code_base(constants.PROJECT_DIRECTORY + "ibeam", "master")

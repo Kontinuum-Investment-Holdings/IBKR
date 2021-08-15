@@ -5,11 +5,10 @@ import communication.telegram
 import global_common
 from ibkr.models import PortfolioPosition, AccountInformation, Account
 
-import common
 import constants
 
 
-@common.job("Getting Account Summary")
+@global_common.job("Getting Account Summary")
 @global_common.threaded
 def get_account_summary() -> None:
     net_worth: Decimal = Decimal("0")

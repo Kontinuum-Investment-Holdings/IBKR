@@ -1,14 +1,13 @@
 from decimal import Decimal
 
 import communication.telegram
+import global_common
 from ibkr.models import Instrument, InstrumentType, StockExchanges
 
-import common
 import constants
-import global_common
 
 
-@common.job("Monitor VIX")
+@global_common.job("Monitor VIX")
 @global_common.threaded
 def monitor_vix() -> None:
     vix_index: Decimal = Instrument.get("VIX", InstrumentType.INDEX, StockExchanges.CBOE).last_price
