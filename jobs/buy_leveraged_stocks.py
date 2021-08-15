@@ -8,8 +8,8 @@ import constants
 from jobs import get_account_summary
 
 
-@global_common.job("Buying stocks leveraged")
 @global_common.threaded
+@global_common.job("Buying stocks leveraged")
 def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
     CancelOrder.all_unfilled_orders()
     for account in Account.get_all():

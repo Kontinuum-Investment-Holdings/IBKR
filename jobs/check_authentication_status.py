@@ -6,8 +6,8 @@ from logger import logger
 import constants
 
 
-@global_common.job("Checking Authentication Status")
 @global_common.threaded
+@global_common.job("Checking Authentication Status")
 def do() -> None:
     authentication: Authentication = Authentication.call()
     if authentication.authenticated:

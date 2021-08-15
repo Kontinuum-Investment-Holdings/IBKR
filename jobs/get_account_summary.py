@@ -8,8 +8,8 @@ from ibkr.models import PortfolioPosition, AccountInformation, Account
 import constants
 
 
-@global_common.job("Getting Account Summary")
 @global_common.threaded
+@global_common.job("Getting Account Summary")
 def get_account_summary() -> None:
     net_worth: Decimal = Decimal("0")
     message: str = "<b><u>Account Summary</u></b>\n"
