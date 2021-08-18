@@ -18,7 +18,12 @@ def run_every_week_day(job: Callable, time: str) -> None:
 if __name__ == "__main__":
     common.log("IBKR Jobs Started")
 
-    schedule.every().minute.do(check_authentication_status.do)
+    schedule.every().hour.at(":00").do(check_authentication_status.do)
+    schedule.every().hour.at(":10").do(check_authentication_status.do)
+    schedule.every().hour.at(":20").do(check_authentication_status.do)
+    schedule.every().hour.at(":30").do(check_authentication_status.do)
+    schedule.every().hour.at(":40").do(check_authentication_status.do)
+    schedule.every().hour.at(":50").do(check_authentication_status.do)
 
     run_every_week_day(monitor_vix.do, "09:30")
     run_every_week_day(monitor_vix.do, "16:00")
