@@ -1,6 +1,6 @@
 import communication.telegram
 import global_common
-from ibkr import Authentication
+from ibkr import Authentication, ReAuthentication
 from logger import logger
 
 import constants
@@ -13,7 +13,10 @@ def do() -> None:
     if authentication.authenticated:
         communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"Authentication status: <i>True</i>", True)
     else:
-        communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"Authentication status: <i>False</i>", True)
+        if ReAuthentication.call().authenticated:
+            communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"Forced Authentication status: <i>True</i>", True)
+        else:
+            communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"Forced Authentication status: <i>False</i>", True)
 
     logger.info(f"Authentication status: {authentication.authenticated}")
 
