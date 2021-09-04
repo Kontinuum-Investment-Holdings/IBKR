@@ -1,11 +1,12 @@
 import global_common
-from ibkr.models import CancelOrder
+import ibkr.common
+from ibkr.models import IBKR
 
 
 @global_common.threaded
-@global_common.job("Cancel Unfilled Orders")
+@ibkr.common.job("Cancel Unfilled Orders", True, "QQQ")
 def do() -> None:
-    CancelOrder.all_unfilled_orders()
+    IBKR.cancel_all_orders()
 
 
 if __name__ == "__main__":

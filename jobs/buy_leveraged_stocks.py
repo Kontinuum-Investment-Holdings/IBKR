@@ -3,6 +3,7 @@ from decimal import Decimal
 
 import communication.telegram
 import global_common
+import ibkr.common
 from ibkr.models import IBKR, OrderAction, OrderType, SecurityType
 
 import constants
@@ -10,7 +11,7 @@ from jobs import get_account_summary
 
 
 @global_common.threaded
-@global_common.job("Buying stocks leveraged")
+@ibkr.common.job("Buying stocks leveraged", True, "QQQ")
 def buy_leveraged_stocks(symbol: str, leverage: int) -> None:
     IBKR.close_all_positions()
     time.sleep(10)
