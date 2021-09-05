@@ -7,6 +7,7 @@ import constants
 @global_common.threaded
 @global_common.job("Update code base")
 def do() -> None:
+    global_common.run_command("sudo apt-get update -y")
     global_common.update_code_base(constants.PROJECT_DIRECTORY + "KIH_API", "main")
     global_common.update_code_base(constants.PROJECT_DIRECTORY + "IBKR", "main")
 
