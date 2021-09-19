@@ -12,6 +12,8 @@ echo "Enter Telegram Bot Token:"
 read KIH_API_TELEGRAM_BOT_TOKEN
 echo "export KIH_API_TELEGRAM_BOT_TOKEN=$KIH_API_TELEGRAM_BOT_TOKEN"| sudo tee -a /etc/profile.d/env_variables.sh
 
+sudo timedatectl set-timezone America/New_York
+
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt install -y ubuntu-desktop
