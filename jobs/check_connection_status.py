@@ -11,7 +11,7 @@ import constants
 def check_connection_status() -> None:
     is_connection_successful: bool = IBKR.is_connection_successful()
     if is_connection_successful:
-        communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"<b><u>Connection status: </u></b> <i>Successful</i>", True)
+        communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"<b>Connection status: </b> <i>Successful</i>", True)
     else:
         communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>Connection status: </u></b> <i>Unsuccessful</i>", True)
 

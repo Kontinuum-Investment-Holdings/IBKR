@@ -43,7 +43,10 @@ mkdir $HOME/logs
 mkdir $HOME/logs/upgrade
 crontab -l | { cat; echo "0 21 * * SAT sudo apt-get update && sudo apt-get upgrade >> $HOME/logs/upgrade/\`date +\%Y-\%m-\%d_\%H-\%M-\%S\`.log 2>&1"; } | crontab -
 mkdir $HOME/logs/buy_leveraged_stocks
-crontab -l | { cat; echo "0 15 * * MON-FRI cd $HOME/python_projects/IBKR && python3 jobs/buy_leveraged_stocks.py >> $HOME/logs/buy_leveraged_stocks/\`date +\%Y-\%m-\%d_\%H-\%M-\%S\`.log 2>&1"; } | crontab -
+crontab -l | { cat; echo "0 15 * * MON-FRI . \$HOME/.profile; cd $HOME/python_projects/IBKR && python3 jobs/buy_leveraged_stocks.py >> $HOME/logs/buy_leveraged_stocks/\`date +\%Y-\%m-\%d_\%H-\%M-\%S\`.log 2>&1"; } | crontab -
+mkdir $HOME/logs/check_connection_status
+crontab -l | { cat; echo "*/10 * * * * . \$HOME/.profile; cd $HOME/python_projects/IBKR && python3 jobs/check_connection_status.py >> $HOME/logs/check_connection_status/\`date +\%Y-\%m-\%d_\%H-\%M-\%S\`.log 2>&1"; } | crontab -
+more /etc/profile.d/env_variables.sh >> ~/.profile
 
 rm -rf tws-latest-linux-x64.sh
 rm -rf setup.sh
