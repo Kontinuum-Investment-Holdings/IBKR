@@ -1,3 +1,5 @@
+import time
+
 import communication.telegram
 import global_common
 import ibkr.common
@@ -14,6 +16,8 @@ def check_connection_status() -> None:
         communication.telegram.send_message(constants.TELEGRAM_BOT_DEV_USERNAME, f"<b>Connection status: </b> <i>Successful</i>", True)
     else:
         communication.telegram.send_message(constants.TELEGRAM_BOT_USERNAME, f"<b><u>Connection status: </u></b> <i>Unsuccessful</i>", True)
+        time.sleep(60)
+        check_connection_status()
 
 
 def do() -> None:
